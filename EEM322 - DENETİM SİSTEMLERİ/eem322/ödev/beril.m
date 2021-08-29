@@ -1,0 +1,6 @@
+sys=tf([1,1],[1,7,28,48,0])
+%rlocusplot(sys)
+%bode(sys,'m')
+stepplot(sys)
+%figure,nyquist(sys)
+[Gm,Pm,Wg,Wp] = margin(sys)

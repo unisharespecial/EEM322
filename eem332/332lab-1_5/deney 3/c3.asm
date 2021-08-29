@@ -1,0 +1,175 @@
+
+	.MODEL SMALL
+	.STACK 64 (?)
+
+; DATA SEGMENT
+
+
+	.DATA
+CR	EQU	0DH
+LF	EQU	0AH
+
+
+STR1	DB  100, ?, 100 DUP (0)	
+	ORG 100
+STR2	DB CR, LF, 100 DUP (?), '$'	
+
+
+MSG	DB	'CUMLEYI  YAZ..:$'
+	ORG 22H
+MSG2	DB	CR, LF, 'YENI CUMLE..:$'
+	ORG 20H
+
+
+
+    
+	.CODE
+MAIN	PROC	FAR                                   
+	MOV AX, @DATA                          
+	MOV DS, AX                                      
+	
+	XOR AX,AX		
+
+	CALL CLRSCR		
+	CALL CURSOR		
+	
+	MOV DX, OFFSET MSG
+	CALL DISPLAYSTR		 
+				
+				
+
+	MOV DX, OFFSET STR1	 
+	CALL INPUT		
+
+	MOV BX, OFFSET STR1	
+	CALL FNDSPC		
+
+	MOV AX, OFFSET STR1
+	ADD AX, DX
+	MOV SI, AX
+
+	MOV AX, OFFSET STR2
+	MOV DI, AX
+
+	CALL REVERT		
+
+
+	MOV DX, OFFSET MSG2
+	CALL DISPLAYSTR
+	
+	
+	MOV DX, OFFSET STR2
+	CALL DISPLAYSTR
+			
+	MOV AH, 4CH		
+	INT 21H		
+
+	JMP tekrar	
+
+MAIN	ENDP			
+	
+
+
+
+
+CLRSCR	PROC
+	MOV AX, 0600H
+	MOV BH, 07H
+	MOV CX, 0000H
+	MOV DX, 184FH
+	INT 10H
+	RET
+CLRSCR	ENDP	
+	
+
+
+CURSOR	PROC
+	MOV AH, 02H
+	MOV BH, 00H
+	MOV DL, 00H
+	MOV DH, 00H	
+	INT 10H
+	RET
+CURSOR	ENDP	
+	
+
+
+
+INPUT	PROC
+
+	MOV AH,0AH		
+	INT 21H			
+	RET
+INPUT	ENDP
+
+
+
+
+
+FNDSPC	PROC
+
+	;BX= OFFSET STR*******************************
+	XOR DX,DX
+	
+SPACE:	MOV DX, BX		
+				
+SEARCH:	MOV AL,[BX]
+	INC BX
+	CMP AL, 20H		 
+	JE SPACE			  
+	CMP AL,0DH		
+	JE LOST		
+	JMP SEARCH		
+	
+LOST:	RET			
+FNDSPC	ENDP
+
+
+
+
+REVERT	PROC
+	
+	MOV AX, BX
+	SUB AX, DX
+	MOV CX, AX
+	DEC CX
+	
+	
+TURN:	MOV AL, [SI]
+	MOV [DI], AL
+	INC SI
+	INC DI
+	LOOP TURN
+	
+	MOV AL, 20H
+	MOV [DI],  AL
+	INC DI
+
+	MOV AX, OFFSET STR1
+	INC AX
+	INC AX
+	MOV SI, AX
+
+COPY:	MOV AL, [SI]
+	MOV [DI], AL
+	INC DI
+	INC SI
+	CMP SI, DX
+	JC COPY
+	
+	RET
+REVERT	ENDP
+
+
+
+
+DISPLAYSTR	PROC
+	MOV AH, 09H
+	INT 21H
+	RET
+DISPLAYSTR ENDP
+
+
+	END MAIN
+
+	

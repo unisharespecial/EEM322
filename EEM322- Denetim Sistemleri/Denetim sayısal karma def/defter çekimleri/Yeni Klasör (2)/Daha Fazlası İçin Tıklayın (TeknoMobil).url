@@ -1,0 +1,15 @@
+[DEFAULT]
+BASEURL=http://www.teknomobil.org/
+[DOC_fb_xdm_frame_http]
+BASEURL=http://static.ak.facebook.com/connect/xd_arbiter.php?version=11
+ORIGURL=http://static.ak.facebook.com/connect/xd_arbiter.php?version=11#channel=f1f67d0ec844fe2&origin=http%3A%2F%2Fwww.teknomobil.org&channel_path=%2F%3Ffb_xd_fragment%23xd_sig%3Df209be0e21b847e%26
+[DOC_fb_xdm_frame_https]
+BASEURL=https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=11
+ORIGURL=https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=11#channel=f1f67d0ec844fe2&origin=http%3A%2F%2Fwww.teknomobil.org&channel_path=%2F%3Ffb_xd_fragment%23xd_sig%3Df209be0e21b847e%26
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,2
+[InternetShortcut]
+URL=http://www.teknomobil.org/
+IDList=
+IconFile=http://www.teknomobil.org/favicon.ico
+IconIndex=1

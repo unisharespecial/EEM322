@@ -1,0 +1,138 @@
+; decibin - get decimal digits from keyboard
+; and convert them to binary in BX register
+
+.model tiny
+
+.code
+.startup
+
+;- - - - - - - - - - - -
+
+; main program loop
+
+start:
+  call    read_num
+  call    print_crlf
+  call    print_hex
+  call    print_crlf
+  jmp     start       ; loop endlessly
+
+
+; *********************************************
+; print_crlf
+; prints out a carriage return and linefeed
+; *********************************************
+
+print_crlf  proc
+
+    mov   ah, 2h    ; print character function
+    mov   dl, 0dh   ; carriage return
+    int   21h       ; print it
+    mov   dl, 0ah   ; linefeed
+    int   21h       ; print it
+    
+  ret
+print_crlf endp
+
+
+
+; *********************************************
+; read_num
+; reads a number from keyboard input
+; and stores it in BX in binary
+; *********************************************
+
+read_num  proc
+
+    mov   bx, 0h      ; clear bx for number
+  
+  ;
+  ; get digit from keyboard and
+  ; convert it to binary
+  ;
+  newchar:
+    mov   ah, 1h      ; keyboard input function
+    int   21h         ; execute ^ with dos
+    sub   al, 30h     ; ascii to binary
+    jl    endinpt     ; jump if < 0
+    cmp   al, 9d      ; is it > 9d?
+    jg    endinpt     ; yes, not decimal digit
+    cbw               ; byte in al to word in ax
+    
+  ;
+  ; digit is now in AX
+  ; multiply number in BX by 10d
+  ;
+    xchg  ax, bx      ; trade digit and number
+    mov   cx, 10d     ; put 10d in CX
+    mul   cx          ; number times 10d
+    xchg  ax, bx      ; trade number and digit
+  
+  ; 
+  ; add digit in AX to number in BX
+  ;
+    add   bx, ax      ; add digit to number
+    jmp   newchar     ; get next digit
+  
+  ;
+  ; check to see what they entered
+  ; if nothing, exit
+  ; otherwise, return from process
+  ;
+  endinpt:
+    cmp   bx, 0h      ; is it 0?
+    jne   return      ; nope, return from process
+    .exit             ; yup, exit program
+  
+  return:
+  
+  ret
+read_num endp
+
+
+
+; *********************************************
+; print_hex
+; prints in hex to the screen the contents of 
+; BX
+; *********************************************
+
+print_hex proc
+
+    mov   ch, 4h    ; number of digits to print
+  
+  ; start with first digit in BX
+  ; register
+
+  rotate:
+    mov   cl, 4h    ; set count to 4 bits
+    rol   bx, cl    ; left digit to right
+  
+  ; convert to number
+
+    mov   al, bl    ; mov to AL
+    and   al, 0fh   ; mask off left digit
+    add   al, 30h   ; convert hex to ascii
+    cmp   al, 3ah   ; is it > 9?
+    jl    printit   ; jump if digit =0 to 9
+    add   al, 27h   ; digit is A to F
+  
+  ; print the digit in
+  ; the AL register
+
+  printit:
+    mov   dl, al    ; put ASCII char in DL
+    mov   ah, 2h    ; display output function
+    int   21h       ; call DOS
+    dec   ch        ; done 4 digits?
+    jnz   rotate    ; not yet
+    
+  ; fallthrough and return
+  
+  ret
+print_hex endp
+
+    
+;- - - - - - - - - - - -
+
+  end

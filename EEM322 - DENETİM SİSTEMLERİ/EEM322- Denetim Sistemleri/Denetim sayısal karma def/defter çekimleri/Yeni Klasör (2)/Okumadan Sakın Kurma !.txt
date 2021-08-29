@@ -1,0 +1,18 @@
+C:\WINDOWS\system32\drivers\etc\host
+
+Klasöründeki host dosyasýný notepat ile açýp aþadaki satýrlarý girip kaydedin.
+(Yönetici izni cart curt hatasý alýrsan, host dosyasýný masaüstüne kopyala dediðim iþlemi yap kaydet
+sonra gene eski yerine at)
+
+Girilecek satýrlar:
+
+ 127.0.0.1 anchorfree.net
+ 127.0.0.1 rss2search.com
+ 127.0.0.1 techbrowsing.com
+ 127.0.0.1 box.anchorfree.net
+ 127.0.0.1 www.mefeedia.com
+ 127.0.0.3 www.anchorfree.net
+ 127.0.0.2 www.mefeedia.com
+
+
+Üstteki iþlemi yapmadan sakýn kurulum yapmayýn!!!!

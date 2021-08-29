@@ -1,0 +1,65 @@
+MPASM  5.46                         BERIL.ASM   4-24-2013  15:35:53         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001                 LIST P=16F84A
+  00000003            00002 STATUS  EQU     H'03'
+  00000006            00003 PORTB   EQU H'06'
+  00000005            00004 PORTA   EQU     H'05'
+  00000086            00005 TRISB   EQU H'86'
+  00000085            00006 TRISA   EQU     H'85'
+0000                  00007                 ORG 0X00
+0000   0186           00008                 CLRF PORTB
+0001   1683           00009                 BSF STATUS,5
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0002   0186           00010                 CLRF TRISB
+0003   30FF           00011                 MOVLW H'FF'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0004   0085           00012                 MOVWF TRISA
+0005   1283           00013                 BCF STATUS,5
+Warning[203]: Found opcode in column 1. (BCF)
+0006   1005           00014 BCF PORTA,0
+0007                  00015 TEKRAR
+0007   1C05           00016                 BTFSS PORTA,0
+0008   280C           00017                 GOTO GIT
+0009   300F           00018                 MOVLW B'00001111'
+000A   0086           00019                 MOVWF PORTB
+000B   2807           00020                 GOTO TEKRAR
+000C                  00021 GIT
+000C   30F0           00022                 MOVLW B'11110000'
+000D   0086           00023                 MOVWF PORTB
+000E   2807           00024                 GOTO TEKRAR
+                      00025                 END
+MPASM  5.46                         BERIL.ASM   4-24-2013  15:35:53         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+GIT                               0000000C
+PORTA                             00000005
+PORTB                             00000006
+STATUS                            00000003
+TEKRAR                            00000007
+TRISA                             00000085
+TRISB                             00000086
+__16F84A                          00000001
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXX- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    15
+Program Memory Words Free:  1009
+
+
+Errors   :     0
+Warnings :     1 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
+
+

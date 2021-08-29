@@ -1,0 +1,14 @@
+c. MOV [DI],AL ? Reg. Indirect addressing, PA:10000+0100=10100
+	d. MOV AL,[BP+DI] ? Based Indexed addressing, PA:10000+1000+0100=11100
+	e. MOV CX,[DI] ? Indexed addressing, PA:10100
+	f.  MOV DX,[BP] ? Based addressing, PA:11000
+	g  MOV [100],DL ? Direct addressing, PA:10100
+	h. MOV [SI+100],AX ? Indexed addressing PA:20000+0200+100= 20300
+	i.  MOV DL,[BX+100] ? Based addressing, PA:10000+0300+100= 10400
+	j.  MOV [SI],DX ? Register indirect  addressing, PA:10200
+	k. MOV CL,[BX] ? Based addressing, PA:10300 
+	l.  MOV CH,[BX+SI] ? Based indexed addressing, PA:10000+0300+0200=10500
+	m.MOV AX,[BP+200] ? Based addressing, PA:11200
+	n. MOV AL,[BP+SI-200] ? Based indexed addressing, PA:11000 
+	o. MOV AL,[SI-0100] ? Indexed indirect addressing, PA:10100
+2)

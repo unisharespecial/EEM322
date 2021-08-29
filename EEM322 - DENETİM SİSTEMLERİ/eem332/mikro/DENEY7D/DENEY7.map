@@ -1,0 +1,34 @@
+MPLINK 4.43, Linker
+Linker Map File - Created Wed Apr 24 10:05:26 2013
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x00001c
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x00000d      
+            14 out of 1094 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                      GIT   0x00000b    program     static C:\Users\sony\Desktop\DENEY7D\DENEY7.ASM
+                   TEKRAR   0x000006    program     static C:\Users\sony\Desktop\DENEY7D\DENEY7.ASM
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   TEKRAR   0x000006    program     static C:\Users\sony\Desktop\DENEY7D\DENEY7.ASM
+                      GIT   0x00000b    program     static C:\Users\sony\Desktop\DENEY7D\DENEY7.ASM
+
+

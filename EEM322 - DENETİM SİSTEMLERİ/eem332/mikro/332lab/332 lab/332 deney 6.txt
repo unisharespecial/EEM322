@@ -1,0 +1,24 @@
+                .MODEL SMALL
+		.STACK 64
+		.DATA
+aamcevrim db '00$'
+.code
+mov ax,@data
+mov ds,ax
+mov es,ax
+
+call aamsonuc proc
+
+ mov ax, 20h
+ mov bl, 0Ah
+ div bl ;AX=0203 yapar.
+or ax,3030h ;AX’teki 0203h artýk 3233h oldu.
+mov sonuc, ax
+lea dx,sonuc
+ mov ah,9
+ int 21h
+
+aamsonuc endp
+ mov ah,4ch
+int 21h
+end

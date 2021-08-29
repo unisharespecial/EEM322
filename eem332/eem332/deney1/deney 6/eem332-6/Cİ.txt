@@ -1,0 +1,53 @@
+		.MODEL SMALL
+		.STACK 64
+		.DATA
+		ORG 0100h
+DAT		DB 100 DUP(?)
+		.CODE
+MAIN		PROC 		FAR
+		MOV 		AX,@DATA
+		MOV		DS,AX
+		SUB		AX,AX
+		MOV 		CX,100
+		MOV		SI,OFFSET DAT
+		sub		bx,bx
+
+verial:
+		mov 		ax,0
+		int 		16h
+		mov		[si],al
+		mov		si
+		mov 		dl,al
+		mov		ah,02
+		int 		21h
+		cmp		al,32d
+		jnz		devam	
+		inc		bx
+
+devam:		cmp 		al,46
+		jz 		yazdir
+		loop		verial
+
+yazdir:		inc 		bl
+		sub 		ax,ax
+		mov 		al,bl
+		mov		cl,10
+		div 		cl
+		mov 		bx,ax
+
+		mov 		ah,02
+		int 		21h
+		mov 		dl,9
+		int 		21h
+		mov 		dl,bl
+		or 		dl,48
+		int 		21h
+		mov		dl,bh
+		or		dl,48
+		int 		21h
+		mov		ah,4ch
+		int 		21h
+		
+		ENDP
+		END MAIN
+		

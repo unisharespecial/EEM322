@@ -1,0 +1,150 @@
+
+; PICBASIC PRO(TM) Compiler 2.50, (c) 1998, 2007 microEngineering Labs, Inc. All Rights Reserved.  
+PM_USED			EQU	1
+
+	INCLUDE	"16F84.INC"
+
+RAM_START       		EQU	0000Ch
+RAM_END         		EQU	0004Fh
+RAM_BANKS       		EQU	00001h
+BANK0_START     		EQU	0000Ch
+BANK0_END       		EQU	0004Fh
+EEPROM_START    		EQU	02100h
+EEPROM_END      		EQU	0213Fh
+
+R0              		EQU	RAM_START + 000h
+R1              		EQU	RAM_START + 002h
+R2              		EQU	RAM_START + 004h
+R3              		EQU	RAM_START + 006h
+R4              		EQU	RAM_START + 008h
+R5              		EQU	RAM_START + 00Ah
+R6              		EQU	RAM_START + 00Ch
+R7              		EQU	RAM_START + 00Eh
+R8              		EQU	RAM_START + 010h
+FLAGS           		EQU	RAM_START + 012h
+GOP             		EQU	RAM_START + 013h
+RM1             		EQU	RAM_START + 014h
+RM2             		EQU	RAM_START + 015h
+RR1             		EQU	RAM_START + 016h
+RR2             		EQU	RAM_START + 017h
+_T               		EQU	RAM_START + 018h
+_BILGI           		EQU	RAM_START + 01Ah
+_LED             		EQU	RAM_START + 01Bh
+_sayi            		EQU	RAM_START + 01Ch
+_x               		EQU	RAM_START + 01Dh
+_ZAMAN           		EQU	RAM_START + 01Eh
+_PORTL           		EQU	 PORTB
+_PORTH           		EQU	 PORTA
+_TRISL           		EQU	 TRISB
+_TRISH           		EQU	 TRISA
+#define _BIR             	_PORTA??3
+#define _IKI             	_PORTA??4
+#define _UC              	_PORTB??7
+#define _PORTA??3        	 PORTA, 003h
+#define _PORTA??4        	 PORTA, 004h
+#define _PORTB??7        	 PORTB, 007h
+	INCLUDE	"YASIN.MAC"
+	INCLUDE	"PBPPIC14.LIB"
+
+	MOVE?CB	018h, TRISA
+	MOVE?CB	080h, TRISB
+	MOVE?CW	00FA0h, _T
+	MOVE?CB	004h, PORTA
+	MOVE?CB	03Fh, PORTB
+
+	LABEL?L	_BASLA	
+	CMPEQ?TCL	_UC, 000h, _ayar
+	CMPNE?TCL	_BIR, 000h, L00002
+	PAUSE?C	04Bh
+	COUNT?TWB	_BIR, _T, _BILGI
+	MOVE?BB	_BILGI, _x
+	GOSUB?L	_al
+	MOVE?BB	_sayi, PORTB
+	LABEL?L	L00002	
+	GOTO?L	_BASLA
+
+	LABEL?L	_al	
+	LOOKUP?BCLB	_x, 00Ch, L00001, _sayi
+	LURET?C	03Fh
+	LURET?C	006h
+	LURET?C	05Bh
+	LURET?C	04Fh
+	LURET?C	066h
+	LURET?C	06Dh
+	LURET?C	07Dh
+	LURET?C	007h
+	LURET?C	07Fh
+	LURET?C	06Fh
+	LURET?C	063h
+	LURET?C	039h
+
+	LABEL?L	L00001	
+	RETURN?	
+
+	LABEL?L	_ayar	
+	MOVE?CB	040h, PORTB
+	CMPEQ?TCL	_BIR, 000h, _art
+	CMPEQ?TCL	_IKI, 000h, _azal
+	GOTO?L	_ayar
+
+	LABEL?L	_art	
+	ADD?WCW	_T, 003E8h, _T
+	CMPNE?WCL	_T, 01F40h, L00004
+	MOVE?CW	01B58h, _T
+	LABEL?L	L00004	
+	ADD?BCB	PORTA, 001h, PORTA
+	CMPNE?BCL	PORTA, 008h, L00006
+	MOVE?CB	007h, PORTA
+	LABEL?L	L00006	
+	LABEL?L	L00008	
+	CMPNE?TCL	_BIR, 000h, L00009
+	GOTO?L	L00008
+	LABEL?L	L00009	
+	PAUSE?C	064h
+
+	LABEL?L	_bekle	
+	CMPEQ?TCL	_UC, 000h, _cik
+	CMPEQ?TCL	_BIR, 000h, _art
+	CMPEQ?TCL	_IKI, 000h, _azal
+	GOTO?L	_bekle
+
+	LABEL?L	_cik	
+	PAUSE?C	032h
+	LABEL?L	L00010	
+	CMPNE?TCL	_UC, 000h, L00011
+	GOTO?L	L00010
+	LABEL?L	L00011	
+	MOVE?CB	03Fh, PORTB
+	GOTO?L	_BASLA
+
+	LABEL?L	_azal	
+	SUB?WCW	_T, 003E8h, _T
+	CMPNE?WCL	_T, 000h, L00012
+	MOVE?CW	003E8h, _T
+	LABEL?L	L00012	
+	SUB?BCB	PORTA, 001h, PORTA
+	CMPNE?BCL	PORTA, 000h, L00014
+	MOVE?CB	001h, PORTA
+	LABEL?L	L00014	
+	LABEL?L	L00016	
+	CMPNE?TCL	_IKI, 000h, L00017
+	GOTO?L	L00016
+	LABEL?L	L00017	
+	PAUSE?C	064h
+
+	LABEL?L	_bekle1	
+	CMPEQ?TCL	_UC, 000h, _cik1
+	CMPEQ?TCL	_IKI, 000h, _azal
+	CMPEQ?TCL	_BIR, 000h, _art
+	GOTO?L	_bekle1
+
+	LABEL?L	_cik1	
+	PAUSE?C	032h
+	LABEL?L	L00018	
+	CMPNE?TCL	_UC, 000h, L00019
+	GOTO?L	L00018
+	LABEL?L	L00019	
+	MOVE?CB	03Fh, PORTB
+	GOTO?L	_BASLA
+
+	END

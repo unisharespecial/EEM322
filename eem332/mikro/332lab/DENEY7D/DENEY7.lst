@@ -1,0 +1,63 @@
+MPASM  5.46                        DENEY7.ASM   4-24-2013  10:05:25         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001                 LIST P=16F84A
+  00000003            00002 STATUS  EQU     H'03'
+  00000006            00003 PORTB   EQU H'06'
+  00000005            00004 PORTA   EQU     H'05'
+  00000086            00005 TRISB   EQU H'86'
+  00000085            00006 TRISA   EQU     H'85'
+0000                  00007                 ORG 0X00
+0000   0186           00008                 CLRF PORTB
+0001   1683           00009                 BSF STATUS,5
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0002   0186           00010                 CLRF TRISB
+0003   30FF           00011                 MOVLW H'FF'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0004   0085           00012                 MOVWF TRISA
+0005   1283           00013                 BCF STATUS,5
+0006                  00014 TEKRAR
+0006   1C05           00015                 BTFSS PORTA,0
+0007   280B           00016                 GOTO GIT
+0008   300F           00017                 MOVLW B'00001111'
+0009   0086           00018                 MOVWF PORTB
+000A   2806           00019                 GOTO TEKRAR
+000B                  00020 GIT
+000B   30F0           00021                 MOVLW B'11110000'
+000C   0086           00022                 MOVWF PORTB
+000D   2806           00023                 GOTO TEKRAR
+                      00024                 END
+MPASM  5.46                        DENEY7.ASM   4-24-2013  10:05:25         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+GIT                               0000000B
+PORTA                             00000005
+PORTB                             00000006
+STATUS                            00000003
+TEKRAR                            00000006
+TRISA                             00000085
+TRISB                             00000086
+__16F84A                          00000001
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXX-- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    14
+Program Memory Words Free:  1010
+
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
+
+

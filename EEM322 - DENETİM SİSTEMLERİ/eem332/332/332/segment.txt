@@ -1,0 +1,62 @@
+CODE SEGMENT
+Bu segment çalýþan programý içeren segmentin adresini gösterir. Diðer bir deyiþle CS ile adreslenen segment içinde makine dili komutlarý yer almaktadýr. Segmentin ilk baytýndan itibaren program parçasý çalýþtýrýlmaya baþlanýr.
+
+DATA SEGMENT
+Data segmenti register’i olan DS geçerli data segmentinin baþlangýç adresini içerir. Bu segment genel olarak program deðiþkenlerini tarafýndan kullanýlýr. Diðer bir deyiþle bilgi iþlem operasyonlarýnda tabii tutulan bilgiler Data Segment içindeki lokasyonlara (bölümlerde) yer alýr.
+
+STACK SEGMENT
+Bu segment alt programlara giderken dönüþ adreslerini saklamak program bitiminde iþletim sistemine dönmek için gerekli bölgelerin saklanmasýnda kullanýlýr.
+
+EXTRA SEGMENT
+Genel olarak string operasyonlarý için kullanýlýr.
+
+
+CPU registerlarý 
+
+       Mikro iþlemci, register adý verilen 14 adet özel lokasyon içerir. Herbiri 16 bit geniþliðinde olan bu lokasyonlarý özel bellek birimleri olarak düþünebiliriz. Registerler, mikro iþlemci tarafýndan özel amaçlar için kullanýlýr. Ayrýca, çeþitli verilerin geçici süreler için saklanmasý ve bu veriler üzerinde iþlem yapýlmasý için registerlerden yararlanýlýr. Registerler CPU chip’inin üzerinde yer aldýklarýndan, registerle yapýlan iþlemler, bellek bölgeleri üzerinde yapýlan iþlemlere nazaran çokdahahýzlýdýr. 
+8086/8088 mikro iþlemcisinin sahip olduðu registerleri aþaðýdaki gibi guruplara ayýrmamýz mümkün; 
+
+ 
+
+Segment registerleri (4 adet ) 
+Genel amaçlý registerler 
+a) Data registerleri (4 adet ) 
+b) Pointer ve index registerleri (4 adet ) 
+Instruction Pointer (1 adet ) 
+Program Status word (1 adet ) 
+       Yukarýda gösterilen 14 adet registerin 4 tanesi CODE, DATA, STACK VE EXTRA segmentlerin baþlangýç adreslerini saklayan CS,DS,SS ve ES registerleridir. Bu dört registere genel olarak segment registerleri denilmektedir. Geriye kalanlardan 8 tanesi genel amaçlý register, 1 tanesi instruction pointer (komut göstergeci ) registeri ve sonuncusu da program status word (durum göstergeci) registeri olarak bilinmektedir. Program status word registerine flag registeri adýný vereceðiz. Genel amaçlý registerler, kendi aralaronda iki guruba ayrýlýrlar. Her iki gurup, 4 adet registerden oluþur. Bunlardan ilk dört registere data, diðer 4 adet registereise pointer ve index registerleri adý verlir.
+
+ 
+
+Data registerlarý 
+
+       Daha çok, aritmetiksel iþlemler için kullanýlan DATA registerleri AX,BX,CX ve DX’dir. Herbir DATA registeri diðer registerlerden farklý olarak, bir bütün halinde veya iki parça halinde kullanýlabilmektedir. Bir DATA registerini iki alt alana bölebilir, böylece registeri 16 bitlik birtek register halinde veya 8 bitlik iki ayrý register halinde kullanma imkanýna sahip olabiliriz. Bu özellik þekil üzerinde gösterilmiþtir. Örneðin AX registerini 16 bitlik iþlemler için AX’i oluþturan AH ve AL yi ise 8 bitlik iþlemler için ele alýrýz. 16 bit uzunluðundaki data registerlerinden herhangi birisinin yüksek seviyeli kýsmý (high order) register isminin ve ‘High’ kelimesinin ilk harfi ile , alçak seviyeli kýsmý (Low order) ise ,yine register isminin ve ‘Low’ kelimesinin ilk harfi ile gösterilir. Böylece AX için AH ve AL, BX için BH ve BL ,CX için CH ve CL, DX için DH ve DL olarak isimlendirilen 8-bitlik registerler elde edilir. Bu 8 bit registerlerden birinin deðerinin deðiþtirilmesi ile, kendisini ihtiva eden 16 bit registerinin deðerinin de deðiþeceði ve bunun tersinin de mümkün olacaðý açýktýr. Fakat bir 16-bit registerin herhangi bir yarýmý üzerinde yapýlan iþlem diðer yarýmý üzerinde deðiþikliðe yol açmayacaktýr. Data registerlerinin dýþýnda kalan registerlerinin dýþýnda kalan registerlerin, bu þekilde alt alanlara bölenemeyeceði þekil üzerinde de gösterilmiþtir. Ancak flag registerleri için daha da farklý bir kullaným söz konusudur. 
+
+       DATA registerlerinin herhangibiri genel program amaçlarý için kullanýlabilir. Diðer taraftan belirli data registerlerlerinin belirli iþlemler sýrasýnda operand olarak kullanýlmasý zorunludur. Böyle bir durumda, programcýnýn bir seçim yapmasý söz konusu deðildir. Akümülatör olarak isimlendirilebilen AX registeri ; çarpa, bölme, giriþ, çýkýþ, bazý string operasyonlarýnda word uzunluklu olarak kullanýlýr. AL registeri byte uzunluklu olup, bazý operasyonlarýn sayaç registeri olarak veya desimal amaçlý aritmetiksel iþlemlerde transfer alaný (alýcý alan registeri ) olorak kullanýlýr. Ah registeri byte uzunluklu bölme ve çarpmalarda kullanýlýr. Base registerolarak isimlendirilebilen BX , daha çok bellek içindeki verilerin adreslanmesinde kullanýlýr. CX sayaç registeridir, LOOP komutlarýnýn veya tekrarlý! ; string operasyonlarýnýn sayaç registeri olarak kullanýlýr. CL registeri shift ve rotate sayacý olarak kullanýlabilir. Data registeri ismi verilen DX , word uzunluklu çarpma ve bölme operasyonlarýnda ,ayrýca giriþ çýkýþ operasyonlarý için port numarasý göstermede kullanýlýr. 
+
+Segment registerlarý 
+
+       8088 ve 8086 iþlemcisi kullanan bilgisayarlar, programlarýn veya datalarýn belleðin iki ayrý alanýna yerleþtirirler. Bu program ve data alanlarý maximum 64 K büyüklüðnde olup segment olarak isimlendirilir. 8088 iþlemcisi ayný anda 4 ayrý segmente sahip olabilir. Bu segmentler CODE, DATA, STACK ve EXTRA segment olarak isimlendirilir. Bu segmentlere ait ilk byte’ýn diðer bir deyiþle segmentin baþlangýç adresinin gösterilmesi için 4 ayrý register kullanýlýr. Bunlar; sýrasý ile CS, DS, SS ve ES olup segment registerleri olarak isimlendirilirler. Code segment registeri olan CS icra gören programý içeren segmentin baþlangýç adresini gösterir. Diðer bir deyiþle, CS ile adreslenen segment içinde makine dili komutlarý yer almaktadýr. Stack segment registeri olan SS, geçerli stack segmentin baþlangýç adresini içerir. Stack segmen! t,çeþitli verilerin geçici olarak saklandýðý bir bellek bloðudur. Data segment registeri olan DS ,geçerli data segmentinin baþlangýç adresidir. Bu segment genel olarak program deðiþkenleri tarafýndan kullanýlýr. Diðer bir deyiþle, bilgi iþlem operasyonlarýna tabi tutulan bilgiler, data segment içindeki lokasyonlarda yer alýrlar. Ekstra segment registeri olan ES geçerli ekstra segmentin baþlangýç adresini içerir. Ekstra segment, genel olarak string operasyonlarý için kullanýlýr. Yeterli bellek büyüklüðüne sahip olan sistemlerde bu 4 segment, belleðin farklý parçalarýdýr. Geniþ belleðe sahip olmayan sistemlerde ise, bu segmentler üstüste gelebilir.
+
+ 
+
+Pointer ve index registerlarý 
+
+       Yukardaki þekil üzerinde degösterildiði gibi; pointer ve indeks registerleri SP, BP, SI ve DI ’dir. Ancak, IP ve BX registerlerini de birer pointer ya da indeks registeri olarak kabul etmek mümkündür. Pointer ve indeks registerleri de, data registerleri gibi aritmetiksel iþlemler için kullanýlabilmektedirler. Fakat bu registerlerin kullanýmýndaki asýl amaç çeþitli bellek bölgelerindeki verilere ulaþabilmek için adres göstericisi olarak ele alýnmalarýdýr. Bellek içindeki bir lokasyonun adresini gösterebilmek için, iki ayrý adres deðeri kullanýlýr. Ýlk deðer, iþaret edilen lokasyonu içinde barýndýran segmentin adresidir . bu noktada segment registerlerinden yararlanýlýr. Lokasyonun segment içindeki yerini gösteren ikinci adres deðeri ise offset adresi olarak bilinir. Offset adreslerinin gösterilmesi için de , pointer ve indeks registerlerinden yararlan! 05;lýr. 
+ 
+
+       Mikro iþlemci, code segment içindeki lokasyonlara eriþebilmek için CS ve IP registerlerini kullanýr. Stack segment içinde bulunan bir veriye ulaþmak için SS registeri ile birlikte SP ya da BP registerlerinden birini kullanmak gerekir. Data segment içindeki lokasyonlara eriþmek için, data segmentin baþlangýcý olan DS registerinden, lokasyonun offset adresini göstermesi için de BX, SI veya DI registerlerinden yararlanýlýr. Ekstra segment ya da geliþigüzel seçilen bir segment içerisindeki lokasyonlara eriþebilmek için CS, DS, SS’ten yararlanabiliriz. Örneðin ES’deki deðeri SS’ e ve ekstra segment içindeki lokasyonun offset adreslerini BP’ ye aktarabiliriz. 
+
+ 
+
+Instruction pointer registerý 
+
+       Komut göstergeci olarak isimlendirebileceðimiz IP registeri, 8088’in icra ünitesi tarafundan icra ettirilecek olan bir sonraki komutun offset adresini içerir. Offset adersi IP ile gösterilen bellek bölgesi code segmenti içindedir. Çünkü programlarý oluþturan komutlar bu segment içinde bulunur. IP registeri özel amaçlý bir register olmasý nedeniyle, programcý tarafýndan direkt olarak kullanýlamaz. Ancak bu registerin deðerini, stack üzerindeki bilgiler ile dolaylý olarak deðiþtirmek mümkündür. 
+
+ 
+
+Program status word registerý 
+
+       Program status word registeri, kýsaca PSW þeklinde gösterebiliriz. Bu registere flag registeri adýný vereceðiz. Flag registeri diðer registerlerden oldukça farklýdýr. Herþeyden önce, ‘PSW’ gösterimi bir operand deðil, sadece bu registerden bahsetmek için kullanýlan bir kýsaltmadýr. Flag registerinin bir bütün olarak veya 16 bitlik, 8 bitlik bir sayý olarak deðerlendirilmesi söz konusu deðildir. Çünkü flag registerinin sayýsal deðeri deðil, kendisini oluþturan bitlerin herbirinin deðeri önem taþýmaktadýr. Ancak, burada da bir kýsýtlama olacak ve registeri oluþturan 16 bitten sadece 9 tanesi kullanýlacaktýr. Bu 9 bitin herbirinin mevcut deðeri çeþitli kontrol komutlarýn icra þekline etki etmekte ya da aritmetiksel veya mantýksal iþlemlerin sonucu hakkýnda bilgi vermektedir. Örneðin ! flag registerinin 6.biti zero flaðý olarak isimlendirilir. Bu iþlem sonrasýnda , bu bitin deðerini kontrol ederek , iþlem sonucunun 0 olup olmadýðýný kontrol edebiliriz. Bu bitin deðeri 1 ise , iþlemin sonucu 0 , aksi taktirde 0’dan farklýdýr.
+
+

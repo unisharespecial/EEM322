@@ -1,0 +1,15 @@
+                .MODEL SMALL
+		.STACK 64
+		.DATA
+DATA1		DB	6H
+DATA2		DB	?
+MAIN		PROC	FAR
+MOV AX,DATA1
+MOV BX,0AH
+DIV BX
+MOV DH,AL
+MUL BX
+MOV CX,DATA1
+SUB CX,AX
+MOV DL,CL
+http://eng.harran.edu.tr/~nbesli/RBT/80x86_Komut.pdf
